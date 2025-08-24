@@ -71,7 +71,7 @@
     }
     .section-title{margin-bottom:12px;font-size:22px;font-weight:800}
 
-    /* Hero reducido */
+    /* Hero */
     .hero{
       display:grid;
       grid-template-columns:1fr .9fr;
@@ -125,6 +125,19 @@
       max-width:100%;
       border-radius:12px;
       box-shadow:var(--shadow);
+    }
+
+    /*celulares*/
+    .device-small{
+      display:grid;
+      place-items:center;
+      margin:15px auto;
+    }
+    .device-small .device-inner{
+      max-width:200px;
+      border-radius:16px;
+      border:6px solid #222;
+      margin-top:0;
     }
 
     /* Formulario FAQ */
@@ -209,7 +222,7 @@
       </div>
       <div class="device">
         <div class="device-inner">
-          <img src="/img/preview.png" alt="Vista previa ExpressiGO">
+          <img src="/img/inicio.png" alt="Vista previa ExpressiGO">
         </div>
       </div>
     </section>
@@ -226,23 +239,12 @@
     const menu=document.querySelectorAll("nav a");
     const btns=document.querySelectorAll("[data-load]");
 
+    // Guardar el Hero original
+    const heroHTML = document.getElementById("hero").outerHTML;
+
     // Contenido de cada sección
     const sections={
-      intro:`<section class="hero">
-        <div>
-          <h1>Manual Técnico de ExpressiGO</h1>
-          <p>Bienvenido al manual interactivo de ExpressiGO. Aprende cómo instalar, configurar y aprovechar todas las funciones de la aplicación.</p>
-          <div class="cta">
-            <span class="btn btn-primary" data-load="instalacion">Instalar</span>
-            <span class="btn btn-ghost" data-load="requisitos">Ver requisitos</span>
-          </div>
-        </div>
-        <div class="device">
-          <div class="device-inner">
-            <img src="/img/preview.png" alt="Vista previa ExpressiGO">
-          </div>
-        </div>
-      </section>`,
+      intro: heroHTML,
       requisitos:`<section class="card"><h2 class="section-title">Requisitos</h2>
       <div class="steps">
         <div class="step"><div><h4>Versión mínima</h4><p>Android 8.0 o superior.</p></div></div>
@@ -278,20 +280,23 @@
       <div class="steps">
         <div class="step"><div><h4>Módulo Cliente</h4><p>Permite solicitar pedidos de forma rápida.</p></div></div>
         <div class="step"><div><h4>Módulo Domiciliario</h4><p>Gestión de entregas y ganancias.</p></div></div>
+        <div class="step"><div><h4>Módulo Soporte</h4><p>Control de algunas funciones.</p></div></div>
         <div class="step"><div><h4>Módulo Administrador</h4><p>Control y monitoreo de la plataforma.</p></div></div>
       </div></section>`,
       interfaz:`<section class="card"><h2 class="section-title">Interfaz de Usuario</h2>
       <div class="steps">
         <div class="step"><div><h4>Mapa en tiempo real</h4><p>Visualiza la ubicación de pedidos y repartidores.</p></div></div>
-        <div class="step"><div><h4>Botones de acción</h4><p>Diseñados para acceso rápido a las funciones.</p></div></div>
+         <div class="device-small"><div class="device-inner"><img src="/img/formularioCliente.png" alt="Interfaz Cliente"></div></div>
+        <div class="step"><div><h4>Historial de Pedidos</h4><p>Todos los pedidos ordenados.</p></div></div>
+         <div class="device-small"><div class="device-inner"><img src="/img/historialPedidos.png" alt="Interfaz Cliente"></div></div>
         <div class="step"><div><h4>Notificaciones</h4><p>Alertas instantáneas para pedidos y estado.</p></div></div>
       </div>
-      <div class="img-box"><img src="/img/interfaz.png" alt="Interfaz ExpressiGO"></div>
       </section>`,
       apis:`<section class="card"><h2 class="section-title">APIs</h2>
       <div class="steps">
         <div class="step"><div><h4>Firebase Auth</h4><p>Autenticación segura con OTP.</p></div></div>
         <div class="step"><div><h4>Firestore</h4><p>Base de datos en la nube en tiempo real.</p></div></div>
+        <div class="step"><div><h4>Storage</h4><p>Permite guardar imagenes.</p></div></div>
         <div class="step"><div><h4>Google Maps API</h4><p>Mapas interactivos y seguimiento.</p></div></div>
       </div></section>`,
       seguridad:`<section class="card"><h2 class="section-title">Seguridad</h2>
@@ -326,7 +331,6 @@
       menu.forEach(m=>m.classList.remove("active"));
       document.querySelector(`nav a[href="${id}"]`).classList.add("active");
       content.innerHTML=sections[id];
-      // volver a activar botones dentro del hero cuando regresa
       const btns=document.querySelectorAll("[data-load]");
       btns.forEach(b=>{
         b.addEventListener("click",()=>loadSection(b.dataset.load));
