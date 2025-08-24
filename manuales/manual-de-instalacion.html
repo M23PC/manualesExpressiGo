@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manual de Instalación – ExpressiGO</title>
+  <meta name="description" content="Guía rápida para instalar ExpressiGO desde Google Play." />
+  <style>
+    :root{
+      --bg:#0f172a;          /* azul gris oscuro */
+      --surface:#111827;     /* gris carbón */
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --brand:#e50914;       /* rojo ExpressiGO */
+      --brand-2:#f7a600;     /* acento amarillo */
+      --ring:#e5091433;
+      --ok:#10b981;
+      --shadow:0 8px 30px rgba(0,0,0,.12);
+      --radius:16px;
+    }
+
+    /* Reset básico */
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #0b1223 0%, #0f172a 40%, #0f172a 100%);
+    }
+
+    /* Topbar */
+    .topbar{
+      position: sticky; top:0; z-index: 50;
+      backdrop-filter: blur(8px);
+      background: rgba(15,23,42,.6);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{
+      max-width: 1100px; margin: 0 auto; padding: 14px 20px;
+      display:flex; align-items:center; justify-content:space-between;
+      color:#fff;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;
+    }
+    .brand-logo{
+      width:32px; height:32px; border-radius:8px; background: linear-gradient(135deg,var(--brand),var(--brand-2));
+      display:grid; place-items:center; color:#fff; font-size:14px; font-weight:900;
+      box-shadow: 0 6px 20px rgba(229,9,20,.35);
+    }
+    .top-actions a{
+      color:#fff; text-decoration:none; font-size:14px; opacity:.9;
+      border:1px solid rgba(255,255,255,.2); padding:8px 12px; border-radius:10px;
+    }
+    .top-actions a:hover{opacity:1; background: rgba(255,255,255,.06);}
+
+    /* Hero */
+    .hero{
+      max-width:1100px; margin: 40px auto 10px; padding: 0 20px;
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:28px;
+      color:#fff;
+    }
+    .hero h1{
+      margin:0; font-size: clamp(28px, 4.2vw, 46px); line-height:1.05; font-weight:900;
+    }
+    .hero p{color:#d1d5db; font-size: clamp(15px, 1.4vw, 18px);}
+    .cta{
+      display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;
+    }
+    .btn{
+      appearance:none; border:none; cursor:pointer; text-decoration:none;
+      padding:12px 16px; border-radius:12px; font-weight:700; transition: transform .06s ease, box-shadow .2s ease;
+    }
+    .btn-primary{
+      background: linear-gradient(135deg,var(--brand), #ff3b2f);
+      color:#fff; box-shadow: 0 10px 24px var(--ring);
+    }
+    .btn-primary:hover{transform: translateY(-1px)}
+    .btn-ghost{background: transparent; border:1px solid rgba(255,255,255,.15); color:#fff;}
+    .device{
+      background: radial-gradient(1200px 400px at 50% -40%, rgba(247,166,0,.18), transparent 50%),
+                  linear-gradient(180deg, #0b1223 0%, var(--surface) 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius: 22px; min-height: 280px; box-shadow: var(--shadow);
+      display:grid; place-items:center; padding:18px;
+    }
+    .device-inner{
+      width: 100%; max-width: 360px; aspect-ratio: 9/16; border-radius: 28px;
+      background: #000; border: 10px solid #222; overflow:hidden;
+      display:grid; place-items:center; color:#fff;
+    }
+    .device-inner small{opacity:.7}
+
+    /* Contenido */
+    .container{
+      max-width: 1000px; margin: 10px auto 60px; padding: 0 20px;
+      display: grid; gap: 20px;
+    }
+
+    .card{
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); border:1px solid #eef2f7;
+      padding: 22px;
+    }
+    .section-title{
+      margin:0 0 12px; font-size: 22px; font-weight: 800; letter-spacing:.2px;
+    }
+    .muted{color: var(--muted); font-size:14px}
+
+.step{
+  display:grid;
+  grid-template-columns: 42px 1fr;   /* número | contenido */
+  gap:14px;
+  align-items:flex-start;
+}
+
+/* el número va en la 1ª columna, 1ª fila */
+.step::before{
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* oculta el <div> vacío que está antes del contenido */
+.step > div:first-child{
+  display: none;
+}
+
+/* fuerza el contenedor real del texto a ocupar la 2ª columna */
+.step > div:last-child{
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* (opcional) mejora de legibilidad */
+.step h4{ margin:0 0 6px; font-size:18px; font-weight:700; color:#111827; }
+.step p{ margin:0; font-size:15.5px; line-height:1.55; color:#374151; }
+    /* Requisitos en 2 columnas */
+    .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      background: #f9fafb; border:1px solid #e5e7eb; color:#111827;
+      padding: 8px 10px; border-radius: 999px; font-size: 12px; font-weight:700;
+    }
+    .ok{color: var(--ok)}
+
+    /* Acordeón */
+    .accordion{display:grid; gap:10px}
+    details{
+      border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px 14px; background:#fff;
+    }
+    summary{
+      list-style:none; cursor:pointer; font-weight:700;
+    }
+    summary::-webkit-details-marker{display:none}
+    details[open]{box-shadow: 0 10px 24px rgba(0,0,0,.06)}
+
+    /* Footer */
+    footer{
+      padding: 24px 20px; text-align:center; color:#c7d2fe; font-size:13px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      background: linear-gradient(180deg, rgba(17,24,39,.2), rgba(17,24,39,.4));
+    }
+
+    .device-inner img{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;   /* o "cover" si quieres que rellene */
+  display: block;
+}
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero{grid-template-columns: 1fr; gap:14px}
+      .device{order:-1}
+      .grid-2{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">Ex</div>
+        <div>ExpressiGO · Instalación</div>
+      </div>
+      <div class="top-actions">
+        <a href="#instalacion">Ir a instalación</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="title">
+    <div>
+      <h1 id="title">Instala ExpressiGO desde Google Play</h1>
+      <p>Comienza en minutos: descarga segura, configuración guiada y primer inicio con verificación por SMS.</p>
+      <div class="cta">
+        <!-- Reemplaza el href por la URL real de tu ficha en Google Play -->
+        <a class="btn btn-primary" href="#" target="_blank" rel="noopener">Descargar en Google Play</a>
+        <a class="btn btn-ghost" href="#requisitos">Ver requisitos</a>
+      </div>
+    </div>
+    <div class="device" aria-hidden="true">
+      <div class="device-inner">
+        <img src="/img/numero.png" alt="Inicio">
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Introducción -->
+    <section class="card" id="introduccion">
+      <h2 class="section-title">¿Qué cubre este manual?</h2>
+      <p class="muted">Guía práctica para usuarios (clientes y domiciliarios) que instalarán la app desde Google Play. Incluye requisitos, pasos de instalación, configuración inicial y verificación de correcto funcionamiento.</p>
+    </section>
+
+    <!-- Requisitos -->
+    <section class="card" id="requisitos">
+      <h2 class="section-title">Requisitos del sistema</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Hardware</h3>
+          <ul>
+            <li>Procesador Quad-Core 1.8 GHz o superior</li>
+            <li>3 GB RAM (recomendado 4 GB)</li>
+            <li>≥ 500 MB de almacenamiento libre</li>
+            <li>Internet estable (Wi-Fi o 4G/5G)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Software y permisos</h3>
+          <ul>
+            <li>Android 8.0 o superior</li>
+            <li>Permitir <b>ubicación (GPS)</b> y <b>notificaciones</b></li>
+            <li>Acceso a Internet</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <span class="badge">Compatibilidad ✔</span>
+        <span class="badge">Instalación segura desde Play Store</span>
+      </div>
+    </section>
+
+    <!-- Instalación -->
+<section class="card" id="instalacion">
+  <h2 class="section-title">Instalación desde Google Play</h2>
+  <div class="steps">
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Abrir Google Play</h4>
+        <p>En tu teléfono Android, localiza y abre la app <b>Google Play Store</b>. 
+        Asegúrate de tener sesión iniciada con tu cuenta de Google y una conexión estable a Internet (Wi-Fi o datos móviles).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Buscar “ExpressiGO”</h4>
+        <p>En la barra superior de búsqueda, escribe <b>ExpressiGO</b>. 
+        Verifica que la aplicación tenga el <b>logo oficial</b> y esté publicada por el desarrollador correcto para evitar descargas falsas.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Descargar e instalar</h4>
+        <p>Toca el botón <b>Instalar</b> y espera a que la descarga finalice. 
+        La instalación se hará automáticamente en tu dispositivo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Abrir ExpressiGO</h4>
+        <p>Una vez instalada, pulsa en <b>Abrir</b> desde Google Play o 
+        busca el ícono de <b>ExpressiGO</b> en tu menú de aplicaciones para comenzar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="muted" style="margin-top:10px">
+    💡 Consejo: activa “Actualizaciones automáticas” en Google Play para asegurarte de tener siempre la última versión de la aplicación.
+  </div>
+</section>
+
+<!-- Configuración Inicial -->
+<section class="card" id="config">
+  <h2 class="section-title">Configuración inicial</h2>
+  <div class="steps">
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Registro con número de celular</h4>
+        <p>Introduce tu número de teléfono móvil para crear una cuenta nueva 
+        o recuperar una existente de manera rápida y segura.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Verificación con código OTP</h4>
+        <p>Recibirás un SMS con un <b>código único</b>. 
+        Ingresa este código en la aplicación para confirmar tu identidad y continuar.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Seleccionar tu rol</h4>
+        <p>Elige si usarás la app como <b>Cliente</b> (para solicitar pedidos) 
+        o como <b>Domiciliario</b> (para recibir y completar pedidos).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Recarga mínima para domiciliarios</h4>
+        <p>Si escoges el rol de <b>Domiciliario</b>, realiza una recarga inicial de <b>$5.000 COP</b>. 
+        Este saldo te habilitará para comenzar a aceptar pedidos de inmediato.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div></div>
+      <div>
+        <h4>Permisos necesarios</h4>
+        <p>Autoriza el acceso a <b>ubicación (GPS)</b> y <b>notificaciones</b>. 
+        Estos permisos son indispensables para mostrar tu ubicación en el mapa y recibir alertas de pedidos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Validación -->
+    <section class="card" id="validacion">
+      <h2 class="section-title">Validación rápida</h2>
+      <ul>
+        <li>La app abre sin errores y muestra la pantalla de inicio.</li>
+        <li>El registro por número + OTP funciona.</li>
+        <li>El mapa muestra tu ubicación correctamente.</li>
+        <li>Los clientes pueden crear pedidos.</li>
+        <li>Los domiciliarios pueden aceptar pedidos tras la recarga mínima.</li>
+        <li>Llegan notificaciones de confirmación y estado.</li>
+      </ul>
+      <p class="muted">Si algo falla, revisa conexión a Internet y permisos de ubicación/notificaciones.</p>
+    </section>
+
+    <!-- Actualizaciones -->
+    <section class="card" id="actualizaciones">
+      <h2 class="section-title">Actualización de la app</h2>
+      <ul>
+        <li><b>Automática:</b> habilítala en Google Play para recibir nuevas versiones sin intervención.</li>
+        <li><b>Manual:</b> busca “ExpressiGO” en Google Play y toca <b>Actualizar</b> cuando esté disponible.</li>
+      </ul>
+    </section>
+
+    <!-- Ayuda / FAQ -->
+    <section class="card" id="ayuda">
+      <h2 class="section-title">Ayuda rápida</h2>
+      <div class="accordion">
+        <details>
+          <summary>El SMS de verificación (OTP) no llega</summary>
+          <div class="muted">Verifica señal de red, número ingresado, espera 60–90s e intenta reenviar el código.</div>
+        </details>
+        <details>
+          <summary>No puedo ver el mapa</summary>
+          <div class="muted">Activa el GPS y concede el permiso de ubicación a ExpressiGO en Ajustes &gt; Apps &gt; Permisos.</div>
+        </details>
+        <details>
+          <summary>¿Dónde recargo el saldo (domiciliarios)?</summary>
+          <div class="muted">Ingresa a la sección <b>Recargas</b> dentro de la app y sigue las instrucciones.</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Soporte -->
+    <section class="card" id="soporte">
+      <h2 class="section-title">Soporte</h2>
+      <p>¿Necesitas ayuda? Escríbenos:</p>
+      <ul>
+        <li><b>Correo:</b> soporte@expressigo.com</li>
+        <li><b>WhatsApp:</b> +57 XXX XXX XXXX</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> ExpressiGO — Guía de instalación desde Google Play
+  </footer>
+
+  <script>
+    // Año dinámico en el footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

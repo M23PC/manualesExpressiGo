@@ -1,313 +1,354 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manual Técnico - ExpressiGO</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manual Técnico – ExpressiGO</title>
   <style>
-    :root {
-      --rojo: #e50914;
-      --amarillo: #f7a600;
-      --gris: #f5f5f5;
-      --texto: #444;
-      --subtexto: #666;
+    :root{
+      --bg:#0f172a;
+      --surface:#111827;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --brand:#e50914;
+      --brand-2:#f7a600;
+      --shadow:0 8px 25px rgba(0,0,0,.15);
+      --radius:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"Inter",system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:linear-gradient(180deg,#0b1223 0%,#0f172a 100%);
+      color:var(--text);
+      display:flex;
+      min-height:100vh;
     }
 
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      display: flex;
-      background: var(--gris);
+    /* Nav lateral */
+    nav{
+      width:260px;
+      background: var(--surface);
+      color:#fff;
+      height:100vh;
+      position:sticky;
+      top:0;
+      padding:20px;
+      overflow-y:auto;
+      border-right:2px solid rgba(255,255,255,.1);
+    }
+    nav h2{margin-bottom:14px;font-size:20px;font-weight:800;text-align:center}
+    nav input{
+      width:100%;padding:8px 10px;border-radius:8px;border:none;
+      margin-bottom:16px;font-size:14px;
+    }
+    nav ul{list-style:none;display:grid;gap:6px}
+    nav a{
+      color:#fff;text-decoration:none;font-size:15px;
+      display:block;padding:8px 12px;border-radius:8px;
+      transition:.2s;background:transparent;
+    }
+    nav a:hover{background:rgba(255,255,255,.1)}
+    nav a.active{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff}
+
+    /* Contenido principal */
+    main{
+      flex:1;
+      max-width:1100px;
+      margin:0 auto;
+      padding:20px;
+      padding-bottom:80px; /* espacio con el footer */
+      display:grid;
+      gap:20px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+      border:1px solid #eef2f7;
+      animation:fade .4s ease;
+    }
+    .section-title{margin-bottom:12px;font-size:22px;font-weight:800}
+
+    /* Hero reducido */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr .9fr;
+      gap:20px;
+      color:#fff;
+      margin-bottom:20px;
+      align-items:center;
+      padding:20px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,0.03);
+    }
+    .hero h1{font-size:clamp(22px,3.2vw,34px);font-weight:900;line-height:1.2}
+    .hero p{color:#d1d5db;font-size:15px;margin:10px 0}
+    .cta{margin-top:10px;display:flex;gap:10px}
+    .btn{padding:8px 12px;border-radius:12px;font-weight:700;text-decoration:none;cursor:pointer}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),#ff3b2f);color:#fff}
+    .btn-ghost{border:1px solid rgba(255,255,255,.3);color:#fff;background:transparent}
+
+    /* Device preview */
+    .device{display:grid;place-items:center}
+    .device-inner{
+      width:100%;max-width:300px;aspect-ratio:9/16;border-radius:20px;
+      border:8px solid #222;background:#000;overflow:hidden;
+      display:grid;place-items:center;color:#fff;
+    }
+    .device-inner img{max-width:100%;object-fit:contain}
+
+    /* Steps */
+    .steps{display:grid;gap:18px;counter-reset:step}
+    .step{
+      display:flex;align-items:flex-start;gap:12px;
+      padding:12px;background:#f9fafb;border-radius:12px;
+      border:1px solid #e5e7eb;
+    }
+    .step::before{
+      content: counter(step);counter-increment: step;
+      flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--brand);color:#fff;width:30px;height:30px;
+      border-radius:50%;font-weight:700
+    }
+    .step h4{margin:0;font-size:17px;font-weight:700}
+    .step p{margin:4px 0 0;font-size:15px;color:#374151;line-height:1.5}
+
+    /* Imagen destacada */
+    .img-box{
+      margin-top:14px;
+      text-align:center;
+    }
+    .img-box img{
+      max-width:100%;
+      border-radius:12px;
+      box-shadow:var(--shadow);
     }
 
-    /* Menú lateral */
-    nav {
-      width: 260px;
-      background: var(--rojo);
-      color: #fff;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    /* Formulario FAQ */
+    .faq-form{
+      margin-top:20px;
+      padding:15px;
+      background:#f3f4f6;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
     }
-    nav h2 {
-      font-size: 24px;
-      text-align: center;
-      color: var(--amarillo);
-      margin-bottom: 20px;
-      font-weight: 800;
-      letter-spacing: 1px;
+    .faq-form textarea{
+      width:100%;
+      min-height:80px;
+      border:1px solid #d1d5db;
+      border-radius:8px;
+      padding:10px;
+      font-size:14px;
+      margin-bottom:10px;
+      resize:vertical;
     }
-    nav input {
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-    nav ul {
-      list-style: none;
-      padding: 0;
-      flex: 1;
-      overflow-y: auto;
-    }
-    nav ul li {
-      margin: 12px 0;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      display: block;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: background 0.3s, transform 0.2s;
-    }
-    nav ul li a:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateX(5px);
+    .faq-form button{
+      padding:8px 14px;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      border:none;
+      color:#fff;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
     }
 
-    /* Contenido */
-    main {
-      margin-left: 280px;
-      padding: 40px;
-      flex: 1;
-      background: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .content {
-      animation: fadeIn 0.5s ease;
-      max-width: 900px;
-      text-align: center;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
+    /* Animaciones */
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-    h2 {
-      color: var(--rojo);
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    p, ul, li {
-      color: var(--texto);
-      line-height: 1.7;
-      font-size: 16px;
-      margin-bottom: 15px;
-      text-align: left;
-    }
-    ul {padding-left: 20px;}
-
-    img {
-      max-width: 100%;
-      margin: 15px 0;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-
-    /* Imágenes de interfaz reducidas */
-    .img-interfaz {
-      max-width: 300px; /* puedes ajustar aquí el tamaño */
-      width: 100%;
-      height: auto;
-      display: block;
-      margin: 10px auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-
-    .faq-item {
-      margin-bottom: 12px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      overflow: hidden;
-      text-align: left;
-    }
-    .faq-question {
-      background: var(--gris);
-      padding: 12px 15px;
-      cursor: pointer;
-      font-weight: bold;
-      color: var(--rojo);
-    }
-    .faq-answer {
-      display: none;
-      padding: 12px 15px;
-      background: #fff;
+    /* Footer */
+    footer{
+      position:fixed;
+      bottom:0;
+      left:260px;
+      right:0;
+      padding:12px;
+      text-align:center;
+      background:#111827;
+      color:#c7d2fe;
+      font-size:13px;
+      border-top:1px solid rgba(255,255,255,.1);
     }
   </style>
 </head>
 <body>
-
   <!-- Menú lateral -->
   <nav>
     <h2>ExpressiGO</h2>
-    <input type="text" id="search" placeholder="Buscar en el manual...">
-    <ul>
-      <li><a href="#" data-section="introduccion">Introducción</a></li>
-      <li><a href="#" data-section="requisitos">Requisitos</a></li>
-      <li><a href="#" data-section="arquitectura">Arquitectura</a></li>
-      <li><a href="#" data-section="instalacion">Instalación</a></li>
-      <li><a href="#" data-section="configuracion">Configuración</a></li>
-      <li><a href="#" data-section="modulos">Módulos</a></li>
-      <li><a href="#" data-section="interfaz">Interfaz de Usuario</a></li>
-      <li><a href="#" data-section="apis">APIs y Servicios</a></li>
-      <li><a href="#" data-section="seguridad">Seguridad</a></li>
-      <li><a href="#" data-section="mantenimiento">Mantenimiento</a></li>
-      <li><a href="#" data-section="problemas">Preguntas Frecuentes</a></li>
-      <li><a href="#" data-section="contacto">Soporte</a></li>
+    <input type="text" id="search" placeholder="Buscar sección...">
+    <ul id="menu">
+      <li><a href="intro" class="active">Inicio</a></li>
+      <li><a href="requisitos">Requisitos</a></li>
+      <li><a href="arquitectura">Arquitectura</a></li>
+      <li><a href="instalacion">Instalación</a></li>
+      <li><a href="config">Configuración</a></li>
+      <li><a href="modulos">Módulos</a></li>
+      <li><a href="interfaz">Interfaz</a></li>
+      <li><a href="apis">APIs</a></li>
+      <li><a href="seguridad">Seguridad</a></li>
+      <li><a href="mantenimiento">Mantenimiento</a></li>
+      <li><a href="faq">Preguntas</a></li>
+      <li><a href="soporte">Soporte</a></li>
     </ul>
   </nav>
 
   <!-- Contenido dinámico -->
-  <main>
-    <div id="content" class="content">
-      <h2>Bienvenido</h2>
-      <p>Este es el <strong>Manual Técnico de ExpressiGO</strong>.  
-      Aquí encontrarás información sobre la instalación, configuración, arquitectura, seguridad y mantenimiento de la aplicación, junto con diagramas y ejemplos técnicos.</p>
-    </div>
-  </main>
-
-  <script>
-    const sections = {
-      introduccion: `<h2>Introducción</h2>
+  <main id="content">
+    <!-- Hero inicial -->
+    <section class="hero" id="hero">
+      <div>
+        <h1>Manual Técnico de ExpressiGO</h1>
         <p>El presente manual técnico ha sido elaborado para documentar el funcionamiento interno, arquitectura y procedimientos de instalación, configuración y mantenimiento de <b>ExpressiGO</b>. 
         Está dirigido a desarrolladores, administradores y personal técnico encargado de soporte.</p>
-        <p>Versión del documento: v1.0 (Agosto 2025).</p>`,
+        <div class="cta">
+          <span class="btn btn-primary" data-load="instalacion">Instalar</span>
+          <span class="btn btn-ghost" data-load="requisitos">Ver requisitos</span>
+        </div>
+      </div>
+      <div class="device">
+        <div class="device-inner">
+          <img src="/img/preview.png" alt="Vista previa ExpressiGO">
+        </div>
+      </div>
+    </section>
+  </main>
 
-      requisitos: `<h2>Requisitos del Sistema</h2>
-        <ul>
-          <li><b>Hardware mínimo:</b> Procesador Quad-Core 1.8 GHz, 3 GB RAM, 64 GB almacenamiento.</li>
-          <li><b>Software:</b> Android 8.0 o superior, Flutter SDK 3.x, Firebase.</li>
-          <li><b>Dependencias:</b> Firebase Auth, Firestore, Google Maps API.</li>
-        </ul>`,
+  <footer>
+    © <span id="y"></span> ExpressiGO — Manual técnico
+  </footer>
 
-      arquitectura: `<h2>Arquitectura del Software</h2>
-        <p>ExpressiGO sigue un modelo cliente-servidor basado en Firebase. Los módulos principales son:</p>
-        <ul>
-          <li>Autenticación OTP</li>
-          <li>Gestión de roles</li>
-          <li>Pedidos y domicilios</li>
-          <li>Panel de administración</li>
-        </ul>
-        <img src="../img/arquitectura.png" alt="Diagrama de Arquitectura">`,
+  <script>
+    document.getElementById("y").textContent=new Date().getFullYear();
 
-      instalacion: `<h2>Instalación</h2>
-        <ol>
-          <li>Descargar el archivo APK desde la página oficial.</li>
-          <li>Activar "Instalación desde orígenes desconocidos".</li>
-          <li>Ejecutar el instalador y aceptar permisos.</li>
-          <li>Registrar número de teléfono y rol.</li>
-        </ol>`,
+    const content=document.getElementById("content");
+    const menu=document.querySelectorAll("nav a");
+    const btns=document.querySelectorAll("[data-load]");
 
-      configuracion: `<h2>Configuración Inicial</h2>
-        <p>Al abrir la aplicación:</p>
-        <ul>
-          <li>Ingresar: Número de celular.</li>
-          <li>Código OTP: Recibiras un codigo de verificación.</li>
-          <li>Configurar rol inicial: Cliente o Domiciliario.</li>
-          <li>Realizar una recarga mínima de $5.000 COP.(Domiciliarios)</li>
-          <li>La sincronización con Firebase es automática.</li>
-        </ul>`,
-
-      modulos: `<h2>Descripción de Módulos</h2>
-        <ul>
-          <li><b>Autenticación:</b> Login OTP con Firebase.</li>
-          <li><b>Cliente:</b> Crear y seguir pedidos.</li>
-          <li><b>Domiciliario:</b> Aceptar pedidos, confirmar entregas.</li>
-          <li><b>Admin:</b> Monitoreo de transacciones y usuarios.</li>
-        </ul>`,
-
-      interfaz: `<h2>Interfaz de Usuario</h2>
-        <p>Pantallas principales:</p>
-        <ul>
-          <li>Inicio: Ingresar número de celular</li>
-          <img src="../img/numero.png" alt="Número de Celular" class="img-interfaz">
-          <li>Seleccionar rol.</li>
-          <img src="../img/seleccionarRol.png" alt="Seleccionar Rol" class="img-interfaz">
-          <li>Cliente: Formulario de pedidos.</li>
-          <img src="../img/FormularioCliente.png" alt="Formulario de pedidos" class="img-interfaz">
-          <li>Domiciliario: lista de pedidos disponibles.</li>
-          <img src="../img/historialPedidos.png" alt="Lista de Pedidos" class="img-interfaz">
-        </ul>`,
-
-      apis: `<h2>APIs y Servicios Externos</h2>
-        <p>ExpressiGO utiliza:</p>
-        <ul>
-          <li>Firebase Authentication API</li>
-          <li>Firestore API</li>
-          <li>Google Maps API</li>
-        </ul>
-        <pre><code>await FirebaseAuth.instance.verifyPhoneNumber(...)</code></pre>`,
-
-      seguridad: `<h2>Seguridad</h2>
-        <ul>
-          <li>Datos cifrados con TLS/SSL.</li>
-          <li>Roles diferenciados: Cliente, Domiciliario, Admin.</li>
-          <li>Verificación OTP.</li>
-        </ul>`,
-
-      mantenimiento: `<h2>Mantenimiento y Actualizaciones</h2>
-        <ul>
-          <li>Revisar dependencias cada 3 meses.</li>
-          <li>Aplicar parches de seguridad de inmediato.</li>
-          <li>Respaldos semanales de la base de datos.</li>
-        </ul>`,
-
-      problemas: `<h2>Preguntas Frecuentes</h2>
-        <div class="faq-item"><div class="faq-question">No llega el OTP</div>
-        <div class="faq-answer">Revisar internet y número de celular.</div></div>
-        <div class="faq-item"><div class="faq-question">El domiciliario no recibe pedidos</div>
-        <div class="faq-answer">Verificar saldo activo en la cuenta.</div></div>`,
-
-      contacto: `<h2>Soporte Técnico</h2>
-        <p>Correo:</p>
-        <p>📧 soporte@expressigo.com</p>
-        <p>📱 WhatsApp: +57 XXX XXX XXXX</p>`
+    // Contenido de cada sección
+    const sections={
+      intro:`<section class="hero">
+        <div>
+          <h1>Manual Técnico de ExpressiGO</h1>
+          <p>Bienvenido al manual interactivo de ExpressiGO. Aprende cómo instalar, configurar y aprovechar todas las funciones de la aplicación.</p>
+          <div class="cta">
+            <span class="btn btn-primary" data-load="instalacion">Instalar</span>
+            <span class="btn btn-ghost" data-load="requisitos">Ver requisitos</span>
+          </div>
+        </div>
+        <div class="device">
+          <div class="device-inner">
+            <img src="/img/preview.png" alt="Vista previa ExpressiGO">
+          </div>
+        </div>
+      </section>`,
+      requisitos:`<section class="card"><h2 class="section-title">Requisitos</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Versión mínima</h4><p>Android 8.0 o superior.</p></div></div>
+        <div class="step"><div><h4>Procesador</h4><p>Quad-Core 1.8 GHz o mejor.</p></div></div>
+        <div class="step"><div><h4>Memoria RAM</h4><p>3 GB como mínimo.</p></div></div>
+        <div class="step"><div><h4>Almacenamiento</h4><p>500 MB libres en el dispositivo.</p></div></div>
+        <div class="step"><div><h4>Conexión</h4><p>Internet estable, preferiblemente 4G o Wi-Fi.</p></div></div>
+      </div></section>`,
+      arquitectura:`<section class="card"><h2 class="section-title">Arquitectura</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Backend</h4><p>Desarrollado con Firebase y Firestore.</p></div></div>
+        <div class="step"><div><h4>Mapas</h4><p>Integración de Google Maps API.</p></div></div>
+        <div class="step"><div><h4>Escalabilidad</h4><p>Arquitectura serverless con alta disponibilidad.</p></div></div>
+      </div>
+      <div class="img-box"><img src="/img/arquitectura.png" alt="Arquitectura ExpressiGO"></div>
+      </section>`,
+      instalacion:`<section class="card"><h2 class="section-title">Instalación desde Google Play</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Abrir Google Play</h4><p>En tu Android abre Google Play Store.</p></div></div>
+        <div class="step"><div><h4>Buscar "ExpressiGO"</h4><p>Escribe ExpressiGO y selecciona la app oficial.</p></div></div>
+        <div class="step"><div><h4>Instalar</h4><p>Pulsa Instalar y espera a que termine.</p></div></div>
+        <div class="step"><div><h4>Abrir la aplicación</h4><p>Presiona Abrir o busca el ícono.</p></div></div>
+      </div></section>`,
+      config:`<section class="card"><h2 class="section-title">Configuración inicial</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Registro</h4><p>Introduce tu número para crear o recuperar cuenta.</p></div></div>
+        <div class="step"><div><h4>Verificación OTP</h4><p>Recibirás un SMS con código único.</p></div></div>
+        <div class="step"><div><h4>Seleccionar rol</h4><p>Elige Cliente o Domiciliario.</p></div></div>
+        <div class="step"><div><h4>Recarga inicial</h4><p>Los domiciliarios deben recargar mínimo $5.000 COP.</p></div></div>
+        <div class="step"><div><h4>Permisos</h4><p>Activa ubicación y notificaciones.</p></div></div>
+      </div></section>`,
+      modulos:`<section class="card"><h2 class="section-title">Módulos</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Módulo Cliente</h4><p>Permite solicitar pedidos de forma rápida.</p></div></div>
+        <div class="step"><div><h4>Módulo Domiciliario</h4><p>Gestión de entregas y ganancias.</p></div></div>
+        <div class="step"><div><h4>Módulo Administrador</h4><p>Control y monitoreo de la plataforma.</p></div></div>
+      </div></section>`,
+      interfaz:`<section class="card"><h2 class="section-title">Interfaz de Usuario</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Mapa en tiempo real</h4><p>Visualiza la ubicación de pedidos y repartidores.</p></div></div>
+        <div class="step"><div><h4>Botones de acción</h4><p>Diseñados para acceso rápido a las funciones.</p></div></div>
+        <div class="step"><div><h4>Notificaciones</h4><p>Alertas instantáneas para pedidos y estado.</p></div></div>
+      </div>
+      <div class="img-box"><img src="/img/interfaz.png" alt="Interfaz ExpressiGO"></div>
+      </section>`,
+      apis:`<section class="card"><h2 class="section-title">APIs</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Firebase Auth</h4><p>Autenticación segura con OTP.</p></div></div>
+        <div class="step"><div><h4>Firestore</h4><p>Base de datos en la nube en tiempo real.</p></div></div>
+        <div class="step"><div><h4>Google Maps API</h4><p>Mapas interactivos y seguimiento.</p></div></div>
+      </div></section>`,
+      seguridad:`<section class="card"><h2 class="section-title">Seguridad</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Códigos OTP</h4><p>Protección al inicio de sesión.</p></div></div>
+        <div class="step"><div><h4>Cifrado</h4><p>Datos cifrados extremo a extremo.</p></div></div>
+        <div class="step"><div><h4>Validación</h4><p>Prevención de fraudes y transacciones sospechosas.</p></div></div>
+      </div></section>`,
+      mantenimiento:`<section class="card"><h2 class="section-title">Mantenimiento</h2>
+      <div class="steps">
+        <div class="step"><div><h4>Actualizaciones</h4><p>Se lanzan versiones con mejoras.</p></div></div>
+        <div class="step"><div><h4>Monitoreo</h4><p>Supervisión constante de errores.</p></div></div>
+      </div></section>`,
+      faq:`<section class="card"><h2 class="section-title">Preguntas frecuentes</h2>
+      <div class="steps">
+        <div class="step"><div><h4>No llega el OTP</h4><p>Revisa tu conexión o tu número.</p></div></div>
+        <div class="step"><div><h4>No carga el mapa</h4><p>Activa el GPS de tu dispositivo.</p></div></div>
+      </div>
+      <div class="faq-form">
+        <h4>¿No encontraste lo que buscabas?</h4>
+        <textarea placeholder="Escribe aquí tu duda..."></textarea>
+        <button>Enviar consulta</button>
+      </div>
+      </section>`,
+      soporte:`<section class="card"><h2 class="section-title">Soporte</h2>
+      <p>Si necesitas ayuda escribe a: <b>soporte@expressigo.com</b></p>
+      </section>`
     };
 
-    const contentDiv = document.getElementById("content");
+    // Función para cargar secciones
+    function loadSection(id){
+      menu.forEach(m=>m.classList.remove("active"));
+      document.querySelector(`nav a[href="${id}"]`).classList.add("active");
+      content.innerHTML=sections[id];
+      // volver a activar botones dentro del hero cuando regresa
+      const btns=document.querySelectorAll("[data-load]");
+      btns.forEach(b=>{
+        b.addEventListener("click",()=>loadSection(b.dataset.load));
+      });
+    }
 
-    document.querySelectorAll("nav ul li a").forEach(link => {
-      link.addEventListener("click", e => {
+    menu.forEach(m=>{
+      m.addEventListener("click",e=>{
         e.preventDefault();
-        const section = link.getAttribute("data-section");
-        contentDiv.innerHTML = sections[section];
+        loadSection(m.getAttribute("href"));
       });
     });
-
-    document.getElementById("search").addEventListener("input", function() {
-      const filter = this.value.toLowerCase();
-      if (filter === "") {
-        contentDiv.innerHTML = `<h2>Bienvenido</h2><p>Este es el <strong>Manual Técnico de ExpressiGO</strong>. Aquí encontrarás información sobre la instalación, configuración, arquitectura, seguridad y mantenimiento de la aplicación.</p>`;
-        return;
-      }
-
-      let results = "";
-      for (const key in sections) {
-        if (sections[key].toLowerCase().includes(filter)) {
-          results += sections[key];
-        }
-      }
-      contentDiv.innerHTML = results || `<p>No se encontraron resultados para "<strong>${filter}</strong>".</p>`;
+    btns.forEach(b=>{
+      b.addEventListener("click",()=>loadSection(b.dataset.load));
     });
 
-    document.addEventListener("click", e => {
-      if (e.target.classList.contains("faq-question")) {
-        const answer = e.target.nextElementSibling;
-        answer.style.display = answer.style.display === "block" ? "none" : "block";
-      }
+    // Búsqueda de secciones
+    document.getElementById("search").addEventListener("input",function(){
+      const val=this.value.toLowerCase();
+      menu.forEach(m=>{
+        m.parentElement.style.display=m.textContent.toLowerCase().includes(val)?"block":"none";
+      });
     });
   </script>
 </body>
